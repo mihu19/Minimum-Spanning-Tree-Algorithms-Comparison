@@ -5,6 +5,8 @@ A web-based tool for comparing Minimum Spanning Tree algorithms: **Kruskal's**, 
 ## Features
 
 - **Interactive Visualization**: Watch each algorithm build the MST step by step
+<img width="1425" height="906" alt="1" src="https://github.com/user-attachments/assets/6860d9e5-9cef-4e18-9349-b5c93486924e" />
+  
 - **Benchmark Mode**: Compare performance across different graph sizes
 - **Multiple Graph Types**: Random, Complete, Sparse, Grid, and Predefined examples
 
