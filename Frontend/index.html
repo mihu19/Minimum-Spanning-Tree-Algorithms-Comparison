@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MST Algorithm Comparison</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Minimum Spanning Tree Algorithm Comparison</h1>
+        </header>
+
+        <nav class="tabs">
+            <button class="tab active" data-tab="visualization">Visualization</button>
+            <button class="tab" data-tab="benchmark">Benchmark</button>
+        </nav>
+
+        <!-- Visualization Tab -->
+        <section id="visualization" class="tab-content active">
+            <div class="panel-grid">
+                <div class="panel controls-panel">
+                    <h2>Graph Settings</h2>
+                    <div class="control-group">
+                        <label for="graphType">Graph Type</label>
+                        <select id="graphType">
+                            <option value="predefined">Predefined Examples</option>
+                            <option value="random">Random Graph</option>
+                            <option value="complete">Complete Graph</option>
+                            <option value="sparse">Sparse Graph</option>
+                            <option value="grid">Grid Graph</option>
+                        </select>
+                    </div>
+
+                    <div id="predefinedOptions" class="control-group">
+                        <label for="predefinedGraph">Example</label>
+                        <select id="predefinedGraph">
+                            <option value="simple">Simple (6 vertices)</option>
+                            <option value="medium">Medium (9 vertices)</option>
+                            <option value="triangle">Triangle (3 vertices)</option>
+                            <option value="diamond">Diamond (4 vertices)</option>
+                        </select>
+                    </div>
+
+                    <div id="randomOptions" class="control-group hidden">
+                        <label for="vertices">Vertices: <span id="verticesValue">10</span></label>
+                        <input type="range" id="vertices" min="3" max="30" value="10">
+                        <label for="density">Edge Density: <span id="densityValue">50%</span></label>
+                        <input type="range" id="density" min="20" max="100" value="50">
+                    </div>
+
+                    <div id="gridOptions" class="control-group hidden">
+                        <label for="gridRows">Rows: <span id="gridRowsValue">4</span></label>
+                        <input type="range" id="gridRows" min="2" max="8" value="4">
+                        <label for="gridCols">Columns: <span id="gridColsValue">4</span></label>
+                        <input type="range" id="gridCols" min="2" max="8" value="4">
+                    </div>
+
+                    <button id="generateGraph" class="btn primary">Generate Graph</button>
+
+                    <hr>
+
+                    <h2>Algorithm</h2>
+                    <div class="algorithm-select">
+                        <label class="radio-card selected" data-algo="kruskal">
+                            <input type="radio" name="algorithm" value="kruskal" checked>
+                            <span class="algo-name">Kruskal's</span>
+                            <span class="algo-badge best">Best</span>
+                        </label>
+                        <label class="radio-card" data-algo="prim">
+                            <input type="radio" name="algorithm" value="prim">
+                            <span class="algo-name">Prim's</span>
+                        </label>
+                        <label class="radio-card" data-algo="boruvka">
+                            <input type="radio" name="algorithm" value="boruvka">
+                            <span class="algo-name">Borůvka's</span>
+                        </label>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="animationSpeed">Animation Speed</label>
+                        <input type="range" id="animationSpeed" min="100" max="2000" value="800">
+                    </div>
+
+                    <div class="button-group">
+                        <button id="runAlgorithm" class="btn primary">▶ Run</button>
+                        <button id="stepAlgorithm" class="btn">Step</button>
+                        <button id="resetVisualization" class="btn">Reset</button>
+                    </div>
+                </div>
+
+                <div class="panel visualization-panel">
+                    <div class="vis-header">
+                        <h2>Graph Visualization</h2>
+                        <div class="graph-info">
+                            <span id="graphStats">No graph loaded</span>
+                        </div>
+                    </div>
+                    <div class="canvas-container">
+                        <canvas id="graphCanvas"></canvas>
+                    </div>
+                    <div class="legend">
+                        <span class="legend-item"><span class="dot gray"></span> Original Edge</span>
+                        <span class="legend-item"><span class="dot green"></span> MST Edge</span>
+                        <span class="legend-item"><span class="dot yellow"></span> Considering</span>
+                        <span class="legend-item"><span class="dot red"></span> Rejected</span>
+                    </div>
+                </div>
+
+                <div class="panel info-panel">
+                    <h2>Algorithm Progress</h2>
+                    <div id="stepInfo" class="step-info">
+                        <p class="placeholder">Generate a graph and run an algorithm to see the steps here.</p>
+                    </div>
+                    <div id="stepLog" class="step-log"></div>
+
+                    <h2>Result</h2>
+                    <div id="resultInfo" class="result-info">
+                        <div class="result-item">
+                            <span class="label">MST Weight:</span>
+                            <span id="mstWeight" class="value">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Edges in MST:</span>
+                            <span id="mstEdges" class="value">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Execution Time:</span>
+                            <span id="execTime" class="value">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Benchmark Tab -->
+        <section id="benchmark" class="tab-content">
+            <div class="benchmark-container">
+                <div class="panel benchmark-controls">
+                    <h2>Benchmark Settings</h2>
+                    <div class="control-group">
+                        <label for="benchSizes">Graph Sizes (comma-separated)</label>
+                        <input type="text" id="benchSizes" value="10, 50, 100, 200, 500">
+                    </div>
+                    <div class="control-group">
+                        <label for="benchDensity">Edge Density: <span id="benchDensityValue">50%</span></label>
+                        <input type="range" id="benchDensity" min="20" max="100" value="50">
+                    </div>
+                    <div class="control-group">
+                        <label for="benchIterations">Iterations per size</label>
+                        <input type="number" id="benchIterations" value="5" min="1" max="50">
+                    </div>
+                    <button id="runBenchmark" class="btn primary">Run Benchmark</button>
+                    
+                    <div id="benchmarkProgress" class="progress-container hidden">
+                        <div class="progress-bar"></div>
+                        <span class="progress-text">Running...</span>
+                    </div>
+                    
+                    <div id="benchmarkStatus" class="benchmark-status hidden">
+                        <h3>Current Test</h3>
+                        <div class="status-item">
+                            <span class="label">Graph Size:</span>
+                            <span id="currentBenchSize" class="value">-</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="label">Algorithm:</span>
+                            <span id="currentBenchAlgo" class="value">-</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="label">Progress:</span>
+                            <span id="currentBenchProgress" class="value">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel benchmark-visualization">
+                    <h2>Live Visualization</h2>
+                    <div class="bench-canvas-container">
+                        <canvas id="benchGraphCanvas"></canvas>
+                    </div>
+                    <div class="bench-algo-times">
+                        <div class="algo-time-card kruskal">
+                            <h4>Kruskal's</h4>
+                            <span id="benchKruskalTime" class="time">-</span>
+                        </div>
+                        <div class="algo-time-card prim">
+                            <h4>Prim's</h4>
+                            <span id="benchPrimTime" class="time">-</span>
+                        </div>
+                        <div class="algo-time-card boruvka">
+                            <h4>Boruvka's</h4>
+                            <span id="benchBoruvkaTime" class="time">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel benchmark-results">
+                    <h2>Performance Results</h2>
+                    <div class="chart-container">
+                        <canvas id="benchmarkChart"></canvas>
+                    </div>
+                    <div id="benchmarkTable" class="benchmark-table">
+                        <p class="placeholder">Run a benchmark to see results here.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>MST Algorithm Comparison Tool | Built for educational purposes</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
