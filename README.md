@@ -8,8 +8,9 @@ A web-based tool for comparing Minimum Spanning Tree algorithms: **Kruskal's**, 
 <img width="1425" height="906" alt="1" src="https://github.com/user-attachments/assets/6860d9e5-9cef-4e18-9349-b5c93486924e" />
   
 - **Benchmark Mode**: Compare performance across different graph sizes
-- **Multiple Graph Types**: Random, Complete, Sparse, Grid, and Predefined examples
+<img width="1443" height="891" alt="2" src="https://github.com/user-attachments/assets/fa6525b5-fbaa-409b-94d6-40d44965ff86" />
 
+- **Multiple Graph Types**: Random, Complete, Sparse, Grid, and Predefined examples
 
 
 ## Setup & Running
