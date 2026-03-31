@@ -6,19 +6,7 @@ from typing import List, Tuple, Dict, Any
 def generate_random_graph(vertices: int, edge_density: float = 0.5, 
                           min_weight: float = 1, max_weight: float = 100,
                           seed: int = None) -> Dict[str, Any]:
-    """
-    Generate a random connected graph.
-    
-    Args:
-        vertices: Number of vertices
-        edge_density: Probability of edge between any two vertices (0-1)
-        min_weight: Minimum edge weight
-        max_weight: Maximum edge weight
-        seed: Random seed for reproducibility
-    
-    Returns:
-        Dictionary with vertices count and edges list
-    """
+                            
     if seed is not None:
         random.seed(seed)
     
@@ -62,7 +50,6 @@ def generate_random_graph(vertices: int, edge_density: float = 0.5,
 
 def generate_complete_graph(vertices: int, min_weight: float = 1, 
                             max_weight: float = 100, seed: int = None) -> Dict[str, Any]:
-    """Generate a complete graph where every vertex is connected to every other."""
     if seed is not None:
         random.seed(seed)
     
@@ -83,7 +70,6 @@ def generate_complete_graph(vertices: int, min_weight: float = 1,
 def generate_sparse_graph(vertices: int, edges_per_vertex: int = 3,
                           min_weight: float = 1, max_weight: float = 100,
                           seed: int = None) -> Dict[str, Any]:
-    """Generate a sparse graph with limited edges per vertex."""
     if seed is not None:
         random.seed(seed)
     
@@ -158,10 +144,7 @@ def generate_grid_graph(rows: int, cols: int, min_weight: float = 1,
 
 def generate_euclidean_graph(vertices: int, width: float = 100, height: float = 100,
                              connection_radius: float = None, seed: int = None) -> Dict[str, Any]:
-    """
-    Generate a graph based on Euclidean distances between random points.
-    Points within connection_radius are connected.
-    """
+
     if seed is not None:
         random.seed(seed)
     
@@ -218,7 +201,6 @@ def generate_euclidean_graph(vertices: int, width: float = 100, height: float = 
 
 
 def generate_predefined_graph(graph_name: str) -> Dict[str, Any]:
-    """Generate a predefined example graph for demonstration."""
     graphs = {
         'simple': {
             'vertices': 6,
