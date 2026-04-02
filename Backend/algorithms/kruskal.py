@@ -1,7 +1,6 @@
 import time
 from typing import List, Tuple, Dict, Any
 
-
 class UnionFind:
     
     def __init__(self, n: int):
@@ -9,13 +8,11 @@ class UnionFind:
         self.rank = [0] * n
     
     def find(self, x: int) -> int:
-        """Find with path compression."""
         if self.parent[x] != x:
             self.parent[x] = self.find(self.parent[x])
         return self.parent[x]
     
     def union(self, x: int, y: int) -> bool:
-        """Union by rank. Returns True if union was performed (different sets)."""
         px, py = self.find(x), self.find(y)
         if px == py:
             return False
@@ -99,7 +96,6 @@ def kruskal(vertices: int, edges: List[Tuple[int, int, float]]) -> Dict[str, Any
 
 
 def kruskal_benchmark(vertices: int, edges: List[Tuple[int, int, float]], iterations: int = 10) -> Dict[str, Any]:
-    """Run Kruskal's algorithm multiple times for accurate benchmarking."""
     times = []
     result = None
     
