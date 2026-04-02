@@ -1,9 +1,7 @@
 import time
 from typing import List, Tuple, Dict, Any
 
-
 class UnionFind:
-    """Union-Find data structure for Boruvka's algorithm."""
     
     def __init__(self, n: int):
         self.parent = list(range(n))
@@ -39,20 +37,7 @@ class UnionFind:
 
 
 def boruvka(vertices: int, edges: List[Tuple[int, int, float]]) -> Dict[str, Any]:
-    """
-    Boruvka's MST Algorithm
-    
-    Args:
-        vertices: Number of vertices (0 to vertices-1)
-        edges: List of (u, v, weight) tuples
-    
-    Returns:
-        Dictionary containing:
-        - mst_edges: List of edges in the MST
-        - total_weight: Total weight of MST
-        - steps: Visualization steps for animation
-        - time_ms: Execution time in milliseconds
-    """
+
     start_time = time.perf_counter()
     
     uf = UnionFind(vertices)
