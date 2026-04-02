@@ -3,7 +3,6 @@ import heapq
 from typing import List, Tuple, Dict, Any
 from collections import defaultdict
 
-
 def prim(vertices: int, edges: List[Tuple[int, int, float]], start_vertex: int = 0) -> Dict[str, Any]:
 
     start_time = time.perf_counter()
