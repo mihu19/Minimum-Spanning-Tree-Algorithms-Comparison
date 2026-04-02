@@ -1,23 +1,3 @@
-"""
-Prim's Algorithm for Minimum Spanning Tree
-
-Prim's algorithm is a greedy algorithm that finds a minimum spanning tree
-for a connected weighted undirected graph. It works by:
-1. Starting from an arbitrary vertex
-2. Growing the MST by adding the minimum weight edge from the tree to a new vertex
-3. Repeating until all vertices are included
-
-Time Complexity: O(E log V) with binary heap, O(V²) with adjacency matrix
-Space Complexity: O(V + E) for adjacency list and priority queue
-
-COMPARISON WITH KRUSKAL'S:
-- Better for dense graphs (many edges)
-- Requires starting vertex
-- Must process vertices in connected order
-- Uses more memory for priority queue
-- Harder to parallelize
-"""
-
 import time
 import heapq
 from typing import List, Tuple, Dict, Any
@@ -25,21 +5,7 @@ from collections import defaultdict
 
 
 def prim(vertices: int, edges: List[Tuple[int, int, float]], start_vertex: int = 0) -> Dict[str, Any]:
-    """
-    Prim's MST Algorithm using min-heap
-    
-    Args:
-        vertices: Number of vertices (0 to vertices-1)
-        edges: List of (u, v, weight) tuples
-        start_vertex: Starting vertex for the algorithm
-    
-    Returns:
-        Dictionary containing:
-        - mst_edges: List of edges in the MST
-        - total_weight: Total weight of MST
-        - steps: Visualization steps for animation
-        - time_ms: Execution time in milliseconds
-    """
+
     start_time = time.perf_counter()
     
     # Build adjacency list
