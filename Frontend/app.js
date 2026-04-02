@@ -1,7 +1,3 @@
-/**
- * MST Algorithm Comparison - Frontend Application
- */
-
 const API_BASE = '';
 
 // State
